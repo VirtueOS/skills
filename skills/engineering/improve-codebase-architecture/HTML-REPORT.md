@@ -105,11 +105,7 @@ One larger card. Candidate name, one sentence on why, anchor link to its card. T
 
 ## Tone
 
-Plain English, concise, but the architectural nouns and verbs come straight from the `/codebase-design` skill. Concision is not an excuse to drift.
-
-**Use exactly:** module, interface, implementation, depth, deep, shallow, seam, adapter, leverage, locality.
-
-**Never substitute:** component, service, unit (for module) · API, signature (for interface) · boundary (for seam) · layer, wrapper (for module, when you mean module).
+Use concise plain English and project-owned terminology. Apply codebase-design vocabulary where it clarifies the actual interface, ownership, or maintenance benefit. Scene, component, service, API, and boundary are valid when they are the precise project terms; do not rename them for vocabulary purity.
 
 **Phrasings that fit the style:**
 
@@ -118,6 +114,6 @@ Plain English, concise, but the architectural nouns and verbs come straight from
 - "Deepen: one interface, one place to test."
 - "Two adapters justify the seam: HTTP in prod, in-memory in tests."
 
-**Wins bullets** name the gain in glossary terms: *"locality: bugs concentrate in one module"*, *"leverage: one interface, N call sites"*, *"interface shrinks; implementation absorbs the wrappers"*. Don't write *"easier to maintain"* or *"cleaner code"*, because those terms aren't in the glossary and don't earn their place.
+**Wins bullets** name concrete maintenance benefits: fewer places to change a mechanic, fewer concepts a caller must know, or a regression caught through the real gameplay boundary. Explain why a proposed layer earns its cost; vague claims of cleaner code are not enough.
 
-No hedging, no throat-clearing, no "it's worth noting that…". If a sentence could be a bullet, make it a bullet. If a bullet could be cut, cut it. If a term isn't in the `/codebase-design` glossary, reach for one that is before inventing a new one.
+Keep the report concise and use precise project terms. Express uncertainty when evidence is incomplete rather than hiding it behind a vocabulary rule.

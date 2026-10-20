@@ -1,3 +1,5 @@
+> **Archived.** Renamed to [setup-virtueos-skills](setup-virtueos-skills.md) in the Godot-first fork. The original page below describes the upstream behavior, not current installation.
+
 ## What it does
 
 `setup-matt-pocock-skills` answers three questions about one repo: where issues live, what the triage labels are called, and where the domain docs sit. It records the answers as markdown files under `docs/agents/`.

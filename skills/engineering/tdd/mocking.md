@@ -1,59 +1,9 @@
-# When to Mock
+# Test doubles and real engine behavior
 
-Mock at **system boundaries** only:
+Prefer real project behavior through a meaningful boundary. Use a controlled clock, seeded randomness, temporary persistence location, or stand-in for an external platform/network service when needed for a repeatable test.
 
-- External APIs (payment, email, etc.)
-- Databases (sometimes - prefer test DB)
-- Time/randomness
-- File system (sometimes)
+Keep important dependencies explicit using the project's existing conventions. A small GDScript object can accept data or a dependency directly; a new dependency-injection framework is not required.
 
-Don't mock:
+Use operation-specific external boundaries so expected outcomes are clear. Avoid replacing all internal scene collaborators with mocks: that can pass while signals, NodePaths, lifecycle, and resource ownership are broken in the actual game.
 
-- Your own classes/modules
-- Internal collaborators
-- Anything you control
-
-## Designing for Mockability
-
-At system boundaries, design interfaces that are easy to mock:
-
-**1. Use dependency injection**
-
-Pass external dependencies in rather than creating them internally:
-
-```typescript
-// Easy to mock
-function processPayment(order, paymentClient) {
-  return paymentClient.charge(order.total);
-}
-
-// Hard to mock
-function processPayment(order) {
-  const client = new StripeClient(process.env.STRIPE_KEY);
-  return client.charge(order.total);
-}
-```
-
-**2. Prefer SDK-style interfaces over generic fetchers**
-
-Create specific functions for each external operation instead of one generic function with conditional logic:
-
-```typescript
-// GOOD: Each function is independently mockable
-const api = {
-  getUser: (id) => fetch(`/users/${id}`),
-  getOrders: (userId) => fetch(`/users/${userId}/orders`),
-  createOrder: (data) => fetch('/orders', { method: 'POST', body: data }),
-};
-
-// BAD: Mocking requires conditional logic inside the mock
-const api = {
-  fetch: (endpoint, options) => fetch(endpoint, options),
-};
-```
-
-The SDK approach means:
-- Each mock returns one specific shape
-- No conditional logic in test setup
-- Easier to see which endpoints a test exercises
-- Type safety per endpoint
+Instantiate the relevant scene or use a playable repro when engine behavior is the requirement. Keep fake-based rules tests separate from evidence that the real integration works. Mocking is a tool for controlling a boundary, not a mandate to redesign every class.

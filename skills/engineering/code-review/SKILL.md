@@ -3,6 +3,10 @@ name: code-review
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
+Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
+
+Before project work, read [project context](../../PROJECT-CONTEXT.md) for roots, authoritative docs, and output paths.
+
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 - **Standards**: does the code conform to this repo's documented coding standards?
@@ -10,24 +14,24 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
+Use the configured project tracker when tracker operations are needed. If those operations are required and configuration is missing, ask the user to run `/setup-virtueos-skills`. A supplied local plan/spec does not require remote tracker setup.
 
 ## Process
 
 ### 1. Pin the fixed point
 
-Whatever the user said is the fixed point (a commit SHA, branch name, tag, `main`, `HEAD~5`, etc.). If they didn't specify one, ask for it.
+Use the user's fixed point (commit, branch, tag, or merge-base). When `implement` invokes this review, use its captured starting commit. Ask one question only if neither is available.
 
-Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so the comparison is against the merge-base). Also note the list of commits via `git log <fixed-point>..HEAD --oneline`.
+For committed work, capture `git diff <fixed-point>...HEAD` and `git log <fixed-point>..HEAD --oneline`. For in-progress work, compare the starting commit to the working tree with `git diff <fixed-point>` and inspect untracked task files too (`git ls-files --others --exclude-standard`). If reviewing staged work, use `git diff --cached <fixed-point>` and state that scope explicitly.
 
-Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
+Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or an empty scope should fail here, not inside two parallel sub-agents. A review before implementation commits must include new files rather than treating an empty committed diff as the whole change.
 
 ### 2. Identify the spec source
 
 Look for the originating spec, in this order:
 
-1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in the tracker doc.
-2. A path the user passed as an argument.
+1. The spec/plan explicitly supplied by the user or the invoking `implement` workflow.
+2. Issue references in commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched through the configured tracker when no explicit source was supplied.
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 

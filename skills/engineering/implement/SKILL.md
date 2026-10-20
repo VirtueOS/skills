@@ -1,17 +1,19 @@
 ---
 name: implement
-description: "Implement a piece of work based on a spec or set of tickets."
+description: Implement a piece of work based on a spec or set of tickets.
 disable-model-invocation: true
 ---
 
-Implement the work described by the user in the spec or tickets.
+Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
 
-If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
+Read [project context](../../PROJECT-CONTEXT.md) before selecting roots, guidance, and output paths. Implement the user's supplied spec, plan, or tickets. Before editing, capture the starting commit and worktree status so review can identify task changes and preserve existing user work.
 
-Call the Skill tool with "tdd" where possible, at pre-agreed seams.
+If a ticket reference is passed, fetch it through the configured tracker and state its title. Ask if the reference is ambiguous. A local supplied plan is sufficient; remote tracker setup is not required for it.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+Use `tdd` where suitable, at the meaningful boundaries agreed during planning. Reuse that agreement and revisit it only when scope materially changes. Apply [Godot feedback guidance](../../GODOT.md) for engine work: use existing commands and test tools, preserve authored references, and require playable evidence for gameplay changes. Keep the implementation proportional to the task.
 
-Once done, call the Skill tool with "code-review" to review the work.
+Run focused checks while working, then the relevant broader checks at the end. Use project-documented parser/import, runtime, and export checks when affected; documentation-only changes need document checks. Report baseline failures separately from regressions and mark unavailable playtest/target-platform evidence as pending.
 
-Commit your work to the current branch.
+Once done, run `code-review` against the starting commit, including current working-tree changes and new files, using the supplied plan/spec as the spec source. Fix actionable findings.
+
+Commit your work to the current branch. Include only task-related changes; preserve unrelated user edits. Report the checks and any remaining limitations.

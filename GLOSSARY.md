@@ -1,6 +1,7 @@
-# Matt Pocock Skills
+# VirtueOS Skills
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+A Godot-first collection of agent workflows for Codex, installed per project for teams. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+Project instructions own game terminology; this glossary describes the toolkit.
 
 ## Language
 

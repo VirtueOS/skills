@@ -1,5 +1,7 @@
 # GLOSSARY.md Format
 
+Use this format only when a glossary is the project's terminology authority or no authority exists. Existing gameplay pages take precedence; this fallback does not require creating a second glossary.
+
 ## Structure
 
 ```md

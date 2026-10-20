@@ -3,11 +3,15 @@ name: diagnosing-bugs
 description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 ---
 
+Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
+
+Before project work, read [project context](../../PROJECT-CONTEXT.md) for roots, authoritative docs, and output paths.
+
 # Diagnosing Bugs
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
-When exploring the codebase, read `GLOSSARY.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
+Use the project's authoritative terminology, decisions, and checks. For engine bugs, read [Godot feedback guidance](../../GODOT.md).
 
 ## Redact
 
@@ -21,20 +25,15 @@ If the redacted output is not enough to diagnose the bug, say so and ask the use
 
 Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
 
-### Ways to construct one, in roughly this order
+### Choose the loop for the failure
 
-1. **Failing test** at whatever seam reaches the bug: unit, integration, e2e.
-2. **Curl / HTTP script** against a running dev server.
-3. **CLI invocation** with a fixture input, diffing stdout against a known-good snapshot.
-4. **Headless browser script** (Playwright / Puppeteer) that drives the UI and asserts on DOM/console/network.
-5. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.
-6. **Throwaway harness.** Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.
-7. **Property / fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
-8. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
-9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
-10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
+- A failing behavior test through an agreed boundary using the project's existing tools.
+- A minimal Godot scene or replay exercising the real lifecycle, physics, input, or resource path. Pin seeds, inputs, engine/renderer, and timing conditions where relevant.
+- A documented runtime/editor scenario with targeted instrumentation or profiler measurements. Visual and device-dependent behavior can use a human playtest loop: give launch steps, actions, expected symptom, and what evidence to return.
+- A CLI fixture, captured trace, property/fuzz loop, bisection, or old/new differential comparison when it reaches the symptom.
+- HTTP or browser automation only when the failing subsystem is actually a web/network surface.
 
-Build the right feedback loop, and the bug is 90% fixed.
+A human loop does not require Bash. The optional [Bash helper](scripts/hitl-loop.template.sh) is available when the environment supports it; otherwise use native commands and a written scenario. Keep artifacts focused and redact credentials or private data.
 
 ### Tighten the loop
 
@@ -50,20 +49,13 @@ A 30-second flaky loop is barely better than no loop; a 2-second deterministic o
 
 The goal is not a clean repro but a **higher reproduction rate**. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. A 50%-flake bug is debuggable; 1% is not, so keep raising the rate until it's debuggable.
 
-### When you genuinely cannot build a loop
+### When a loop is not yet available
 
-Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do **not** proceed to hypothesise without a loop.
+State what you tried and what evidence is missing. Use source inspection and falsifiable hypotheses to guide constructing the repro, clearly labeling uncertainty. Ask one focused question for the required access or captured evidence when blocked. Do not claim a diagnosis or fix verified without rechecking the actual failure path.
 
-### Completion criterion: a tight loop that goes red
+### Completion criterion: observed evidence of the symptom
 
-Phase 1 is done when the loop is **tight** and **red-capable**: you can name **one command** (a script path, a test invocation, a curl) that you have **already run at least once** (show the invocation and its output, redacted), and that is:
-
-- [ ] **Red-capable**: it drives the actual bug code path and asserts the **user's exact symptom**, so it can go red on this bug and green once fixed. Not "runs without erroring"; it must be able to _catch this specific bug_.
-- [ ] **Deterministic**: same verdict every run (flaky bugs: a pinned, high reproduction rate, per above).
-- [ ] **Fast**: seconds, not minutes.
-- [ ] **Agent-runnable**: you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
-
-If you catch yourself reading code to build a theory before this command exists, **stop: jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+Show the command and outcome, or the repeatable human scenario and returned observations. The loop must reach the user's exact symptom and provide an observable pass/fail signal. Make it as fast and repeatable as the real failure permits; engine startup, device access, and intermittent bugs need not meet an arbitrary seconds-only gate. Human validation remains pending until evidence returns.
 
 ## Phase 2: Reproduce + minimise
 
@@ -109,7 +101,7 @@ Tool preference:
 
 **Tag every debug log** with a unique prefix, e.g. `[DEBUG-a4f2]`. Cleanup at the end becomes a single grep. Untagged logs survive; tagged logs die.
 
-**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
+**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, engine profiler, fixed-scene timing, or the relevant subsystem profiler), then bisect. Measure first, fix second.
 
 ## Phase 5: Fix + regression test
 

@@ -11,9 +11,9 @@ git submodule add https://github.com/VirtueOS/skills.git .agents/toolkit
 call .agents\toolkit\scripts\setup-toolkit.bat .
 ```
 
-Agents must resolve each discovered directory link to its physical source before reading parent-relative skill references. The skill entry points state this explicitly: the installed flat layout differs from the toolkit's bucket layout.
+The linked folders preserve the toolkit's bucket layout. Resolve an individual skill directory to its physical source before following parent-relative references, as its entry point instructs.
 
-The batch file takes project root, toolkit root, agent name, and optional `include-in-progress` as positional arguments. The roots default to the current directory and the toolkit script parent respectively. It copies `.gdignore`, `AGENTS.md`, `GLOSSARY.md`, and `README.md` from the toolkit root into `.agents/`, overwriting existing files, then creates Windows directory junctions for skills. It never copies skill directories or fetches updates. Existing skill destinations are reported as collisions. The script does not track ownership or prune old links, so remove obsolete junctions manually after checking their targets.
+The batch file takes project root, toolkit root, and optional agent name as positional arguments. The roots default to the current directory and the toolkit script parent respectively. It copies `.gdignore`, `AGENTS.md`, `GLOSSARY.md`, and `README.md` from the toolkit root into `.agents/`, overwriting existing files. It then creates directory junctions from `.agents/skills/` to the toolkit's full `skills/` tree and `.agents/docs/` to its `docs/` tree. It never copies skill folders or fetches updates. Existing link destinations are reported as collisions. The script does not track ownership or prune old links, so remove obsolete junctions manually after checking their targets.
 
 Commit `.gitmodules` and the `.agents/toolkit` gitlink in the game repository. The gitlink pins a revision; teammates receive the same toolkit after initializing submodules. Ensure the game's ignore rules permit that submodule, project instructions, and project-specific skills.
 
@@ -28,15 +28,16 @@ game/
     README.md                copied from toolkit on each setup run
     .gdignore                copied from toolkit on each setup run
     toolkit/                 pinned submodule, this repository
-    skills/<skill-name>/     generated local links to toolkit skills
+    skills/                  junction to toolkit skills/
+    docs/                    junction to toolkit docs/
 
 ```
 
 ## Ignore generated links, preserve project skills
 
-Generated skill links contain local machine paths and must not be committed. Add ignore entries for the generated skill destinations. The four copied toolkit files can be committed when the project should share them, but setup overwrites them from the pinned toolkit revision every time. Keep project-specific guidance in the game root `AGENTS.md` or `.agents/project/`, and project terminology in its own authoritative location. If the project has no custom skills, ignoring `.agents/skills/` is sufficient. If it has custom skills, ignore only toolkit-owned names, or use explicit exceptions for the custom folders. Do not blanket-ignore `.agents/*`: it would also hide the submodule and game-owned configuration.
+The skills and docs junctions point to local paths. Add ignore entries for `.agents/skills/` and `.agents/docs/`, and `.claude/skills/` when using the optional Claude target. The four copied toolkit files can be committed when the project should share them, but setup overwrites them from the pinned toolkit revision every time. Keep project-specific guidance in the game root `AGENTS.md` or `.agents/project/`, and project terminology in its own authoritative location. The whole skill tree is linked, so project-specific skills cannot be placed inside `.agents/skills/`; move them to a project-owned location. Do not blanket-ignore `.agents/*`: it would also hide the submodule and game-owned configuration.
 
-The script does not edit ignore rules or Git state. It refreshes the four copied toolkit files and reports collisions rather than replacing existing skill destinations. After a checkout move or toolkit update, remove old junctions after checking their targets, then rerun setup.
+The script does not edit ignore rules or Git state. It refreshes the four copied toolkit files and reports collisions rather than replacing existing link destinations. After a checkout move or toolkit update, remove old junctions after checking their targets, then rerun setup.
 
 ## Teammate checkout and updates
 
@@ -60,19 +61,19 @@ Review and commit the changed gitlink in the game repository through its normal 
 
 ## Optional skills and hosts
 
-Promoted engineering and productivity skills are linked by default. Pass `include-in-progress` as the fourth argument to opt into the beta bucket. Existing links are left in place, so remove beta junctions manually when opting out. User-invoked skills remain explicit-only according to their metadata.
+The full skills tree is linked, including engineering, productivity, and in-progress buckets. User-invoked skills remain explicit-only according to their metadata.
 
-Pass `Claude` as the third argument to generate project-local `.claude/skills/` links later. This only provides files in Claude's skill location; it does not configure Claude or create competing instruction files. Do not install an upstream plugin alongside this fork with the same skill names.
+Pass `Claude` as the third argument to create a `.claude/skills/` junction to the full skills tree. This only provides files in Claude's skill location; it does not configure Claude or create competing instruction files. Do not install an upstream plugin alongside this fork with the same skill names.
 
 ## Godot and migration
 
 Keep the toolkit and generated links out of game imports and exports. [Godot's project-organization documentation](https://docs.godotengine.org/en/stable/tutorials/best_practices/project_organization.html#ignoring-specific-folders) explains `.gdignore`: an empty file excludes a folder from importing and resource loading. The setup script copies the toolkit `.gdignore` into `.agents/`, so keep runtime game resources outside that folder. Review export presets and inspect the exported package for tooling, tests, and private documentation. Import exclusion alone is not evidence that a custom export packaging step excludes everything.
 
-For an existing ignored copy, first inventory the old collection and preserve game-owned instructions, local skill edits, and terminology documents. Move only the old toolkit out of the destination after reviewing that inventory. Add the submodule, link the skills, repair game pointers, and verify discovery before removing the backup. Do not replace an entire `.agents/` directory containing `.agents/project/`. This procedure is documented here; no existing game is migrated by this toolkit change.
+For an existing ignored copy, first inventory the old collection and preserve game-owned instructions, local skill edits, and terminology documents. Move only the old toolkit out of the destination after reviewing that inventory. Add the submodule, move any existing `.agents/skills/` and `.agents/docs/` directories aside after reviewing their contents, run setup, repair game pointers, and verify discovery before removing the backup. Do not replace an entire `.agents/` directory containing `.agents/project/`. This procedure is documented here; no existing game is migrated by this toolkit change.
 
 ## Verify
 
-Check that `.agents/skills/implement/SKILL.md` resolves to the pinned toolkit, then use the host's skill selector or invoke `$implement` in a new project session. Codex may require restarting if new skills do not appear. Reading a linked file verifies the filesystem, not the running app's discovery. The repository's automated setup checks run with:
+Check that `.agents/skills/engineering/implement/SKILL.md` resolves to the pinned toolkit, then use the host's skill selector or invoke `$implement` in a new project session. Codex may require restarting if new skills do not appear. Reading a linked file verifies the filesystem, not the running app's discovery. The repository's automated setup checks run with:
 
 ```bat
 call tests\test-setup-toolkit.bat

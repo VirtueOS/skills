@@ -1,13 +1,12 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
-rem Usage: setup-toolkit.bat [project-root] [toolkit-root] [Codex|Claude] [include-in-progress]
+rem Usage: setup-toolkit.bat [project-root] [toolkit-root] [Codex|Claude]
 set "PROJECT=%~f1"
 if "%~1"=="" set "PROJECT=%CD%"
 set "TOOLKIT=%~f2"
 if "%~2"=="" for %%I in ("%~dp0..") do set "TOOLKIT=%%~fI"
 set "AGENT=%~3"
 if "%AGENT%"=="" set "AGENT=Codex"
-set "INCLUDE_BETA=%~4"
 
 if not exist "%PROJECT%\.git" (
   echo ERROR: project root must contain .git: "%PROJECT%" 1>&2
@@ -15,6 +14,10 @@ if not exist "%PROJECT%\.git" (
 )
 if not exist "%TOOLKIT%\skills\engineering" (
   echo ERROR: toolkit skills are missing at "%TOOLKIT%". Initialize the toolkit submodule first. 1>&2
+  exit /b 1
+)
+if not exist "%TOOLKIT%\docs" (
+  echo ERROR: toolkit documentation is missing at "%TOOLKIT%\docs". 1>&2
   exit /b 1
 )
 if /i "%PROJECT%"=="%TOOLKIT%" (
@@ -27,30 +30,42 @@ if /i not "%AGENT%"=="Codex" if /i not "%AGENT%"=="Claude" (
 )
 if /i "%AGENT%"=="Codex" (set "AGENTDIR=.agents") else set "AGENTDIR=.claude"
 set "AGENTROOT=%PROJECT%\.agents"
+set "SKILLS_LINK=%PROJECT%\%AGENTDIR%\skills"
+set "DOCS_LINK=%AGENTROOT%\docs"
+
 for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do if not exist "%TOOLKIT%\%%F" (
   echo ERROR: required toolkit file is missing: "%TOOLKIT%\%%F" 1>&2
   exit /b 1
 )
+if exist "%SKILLS_LINK%" (
+  echo ERROR: skill destination already exists: "%SKILLS_LINK%". Move it aside after checking its contents, then rerun setup. 1>&2
+  exit /b 1
+)
+if exist "%DOCS_LINK%" (
+  echo ERROR: documentation destination already exists: "%DOCS_LINK%". Move it aside after checking its contents, then rerun setup. 1>&2
+  exit /b 1
+)
+
 if not exist "%AGENTROOT%" md "%AGENTROOT%"
 if not exist "%AGENTROOT%" exit /b 1
 for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do (
   call :copy_file "%%F"
   if errorlevel 1 exit /b 1
 )
-set "DEST=%PROJECT%\%AGENTDIR%\skills"
-if not exist "%DEST%" md "%DEST%"
-if not exist "%DEST%" exit /b 1
+if not exist "%PROJECT%\%AGENTDIR%" md "%PROJECT%\%AGENTDIR%"
+if not exist "%PROJECT%\%AGENTDIR%" exit /b 1
 
-set /a COUNT=0
-for %%B in (engineering productivity) do call :link_bucket "%%B"
-if errorlevel 1 exit /b 1
-if /i "%INCLUDE_BETA%"=="include-in-progress" call :link_bucket "in-progress"
-if errorlevel 1 exit /b 1
-if %COUNT% EQU 0 (
-  echo ERROR: no selected skills found in "%TOOLKIT%". 1>&2
+mklink /J "%SKILLS_LINK%" "%TOOLKIT%\skills" >nul
+if errorlevel 1 (
+  echo ERROR: could not create skills junction "%SKILLS_LINK%". Check permissions and filesystem support. 1>&2
   exit /b 1
 )
-echo Copied toolkit guidance and linked %COUNT% skills for %AGENT%. Commit the submodule revision in the consuming project.
+mklink /J "%DOCS_LINK%" "%TOOLKIT%\docs" >nul
+if errorlevel 1 (
+  echo ERROR: could not create docs junction "%DOCS_LINK%". Remove the newly created skills junction and check permissions. 1>&2
+  exit /b 1
+)
+echo Copied toolkit guidance and linked the full skills and docs directories for %AGENT%.
 exit /b 0
 
 :copy_file
@@ -60,31 +75,4 @@ if errorlevel 1 (
   exit /b 1
 )
 echo Copied %~1 to .agents\%~1
-exit /b 0
-
-:link_bucket
-for /d %%S in ("%TOOLKIT%\skills\%~1\*") do (
-  if exist "%%~fS\SKILL.md" (
-    call :link_one "%%~nxS" "%%~fS"
-    if errorlevel 1 exit /b 1
-  )
-)
-exit /b 0
-
-:link_one
-set "NAME=%~1"
-set "SOURCE=%~2"
-set "LINK=%DEST%\%~1"
-if exist "%LINK%" (
-  rem An existing destination is never replaced by this batch installer.
-  echo ERROR: destination already exists: "%LINK%". Move it aside manually before rerunning. 1>&2
-  exit /b 1
-)
-mklink /J "%LINK%" "%SOURCE%" >nul
-if errorlevel 1 (
-  echo ERROR: could not create junction "%LINK%". Check permissions and filesystem support. 1>&2
-  exit /b 1
-)
-echo %NAME% -^> %SOURCE%
-set /a COUNT+=1
 exit /b 0

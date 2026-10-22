@@ -14,7 +14,7 @@ Read [project context](../../PROJECT-CONTEXT.md) before choosing a root or outpu
 
 Read project instructions, documentation indexes, existing tracker/label guides, terminology pages and ADRs. For Godot, find `project.godot`, documented engine commands, test scripts/framework, authoring conventions, and target platforms. Record current versus planned structure. Inspect actual contexts rather than assuming a JavaScript monorepo layout.
 
-Reuse existing paths and setup. Default new configuration to `.agents/project/` only when no convention exists. Keep all game-specific files outside `.agents/toolkit/`. Do not create a second glossary when mechanic pages already own terminology.
+Reuse existing paths and setup. Keep all game-specific files outside `.agents/toolkit/`. Do not create a second glossary when mechanic pages already own terminology.
 
 ## Settle missing decisions
 

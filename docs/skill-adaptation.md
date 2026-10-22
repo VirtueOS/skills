@@ -7,7 +7,7 @@ This is the accepted adaptation plan and work breakdown. The user subsequently i
 - Maintain a personal Godot-first fork. Review and selectively adopt upstream changes.
 - Target GDScript, 2D and 3D games, and Windows and Web exports.
 - Prioritize Codex while keeping future Claude support possible.
-- Install this repository as a Git submodule at `.agents/toolkit/` in each game project so the team shares a pinned toolkit revision. A local setup command links individual skills into `.agents/skills/`. Keep project-specific guidance under `.agents/project/`, outside the submodule. The current ignored copy is intentionally excluded while the skills are not production-ready.
+- Install this repository as a Git submodule at `.agents/toolkit/` in each game project so the team shares a pinned toolkit revision. A local setup command links individual skills into `.agents/skills/`. The current ignored copy is intentionally excluded while the skills are not production-ready.
 - Follow each project's instructions and documentation. Discover paths, engine versions, commands, and terminology there; use defaults only where guidance is absent. Do not require a new glossary when the project already has authoritative terminology documents.
 - Favor the smallest sufficient implementation. Add abstractions only for a concrete requirement, demonstrated complexity, or duplication with a clear maintenance benefit.
 - Keep useful automated correctness checks and require playable evidence for gameplay changes.
@@ -21,7 +21,7 @@ This is the accepted adaptation plan and work breakdown. The user subsequently i
 
 The user supplied `W:/Projects/Godot/blackout_protocol` as an example, not as a layout to hardcode into shared skills.
 
-Its root `AGENTS.md` routes agents through `.agents/project/workflow.md` and `docs/index.md`. Its documentation owns testing commands, terminology, coding standards, and scene/resource authoring rules. `project.godot` declares Godot 4.7 with Forward Plus; that declaration does not establish the installed executable's exact version or a minimum version for the shared toolkit.
+Its root `AGENTS.md` routes agents through `docs/agents/workflow.md` and `docs/index.md`. Its documentation owns testing commands, terminology, coding standards, and scene/resource authoring rules. `project.godot` declares Godot 4.7 with Forward Plus; that declaration does not establish the installed executable's exact version or a minimum version for the shared toolkit.
 
 Tests use standalone GDScript scripts, generally extending `SceneTree`, with PowerShell commands documented by the project. No new test framework is implied. Architecture documentation distinguishes current structure from a proposed target structure.
 
@@ -117,7 +117,7 @@ Add linking tooling similar in purpose to upstream's removed `scripts/link-skill
 
 Resolve paths from explicit project/toolkit locations, not the caller's working directory. Use a supported local directory-link mechanism, with actionable instructions if the environment cannot create it. Do not copy upstream's deletion of existing ordinary destination directories. Detect collisions and only maintain links owned by this setup.
 
-Acceptance: a fresh scratch game repository can initialize a pinned submodule, run setup, and expose the expected Codex skills. Running setup twice is safe. Paths containing spaces and invocation from another directory work. Real destination files, project-specific skills, and `.agents/project/` are preserved. Missing/uninitialized submodules produce clear guidance. Document clone/init, reviewed revision updates, link refresh, generated-link ignore rules, and future Claude considerations. Existing toolkit Git state is not changed by setup. Verify Godot import/export exclusion guidance for embedded toolkit content without migrating a real game.
+Acceptance: a fresh scratch game repository can initialize a pinned submodule, run setup, and expose the expected Codex skills. Running setup twice is safe. Paths containing spaces and invocation from another directory work. Real destination files and project-specific skills are preserved. Missing/uninitialized submodules produce clear guidance. Document clone/init, reviewed revision updates, link refresh, generated-link ignore rules, and future Claude considerations. Existing toolkit Git state is not changed by setup. Verify Godot import/export exclusion guidance for embedded toolkit content without migrating a real game.
 
 ### T8: Remove TypeScript specialization and repair fork residue
 

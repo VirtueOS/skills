@@ -6,7 +6,7 @@ A personal Godot-first fork of [Matt Pocock's skills](https://github.com/mattpoc
 
 Use as a Git submodule at `.agents/toolkit/`, then run `setup-toolkit.bat` to copy toolkit guidance into `.agents/` and link the full `skills/` and `docs/` trees. See [installation and updates](docs/installation.md) for commands, generated-link ignore rules, optional Claude support, and migration from an existing copy.
 
-Keep game-specific configuration in `.agents/project/` or its existing documented location. Run [setup-virtueos-skills](skills/engineering/setup-virtueos-skills/SKILL.md) when tracker/documentation setup is needed. Game configuration belongs outside the shared submodule.
+Run [setup-virtueos-skills](skills/engineering/setup-virtueos-skills/SKILL.md) when tracker/documentation setup is needed. Game configuration belongs outside the shared submodule.
 
 ## Workflow
 

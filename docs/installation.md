@@ -17,7 +17,7 @@ The batch file takes project root, toolkit root, and optional agent name as posi
 
 Commit `.gitmodules` and the `.agents/toolkit` gitlink in the game repository. The gitlink pins a revision; teammates receive the same toolkit after initializing submodules. Ensure the game's ignore rules permit that submodule, project instructions, and project-specific skills.
 
-Keep `.agents/project/` for game-owned workflow/configuration, and link it from the game's `AGENTS.md`. Run `$setup-virtueos-skills` after linking if tracker/documentation configuration is needed. Existing project guides take precedence; setup must not write game configuration into the toolkit.
+Run `$setup-virtueos-skills` after linking if tracker/documentation configuration is needed. Existing project guides take precedence; setup must not write game configuration into the toolkit.
 
 ```text
 game/
@@ -35,7 +35,7 @@ game/
 
 ## Ignore generated links, preserve project skills
 
-The skills and docs junctions point to local paths. Add ignore entries for `.agents/skills/` and `.agents/docs/`, and `.claude/skills/` when using the optional Claude target. The four copied toolkit files can be committed when the project should share them, but setup overwrites them from the pinned toolkit revision every time. Keep project-specific guidance in the game root `AGENTS.md` or `.agents/project/`, and project terminology in its own authoritative location. The whole skill tree is linked, so project-specific skills cannot be placed inside `.agents/skills/`; move them to a project-owned location. Do not blanket-ignore `.agents/*`: it would also hide the submodule and game-owned configuration.
+The skills and docs junctions point to local paths. Add ignore entries for `.agents/skills/` and `.agents/docs/`, and `.claude/skills/` when using the optional Claude target. The four copied toolkit files can be committed when the project should share them, but setup overwrites them from the pinned toolkit revision every time. Keep project-specific guidance in the game root `AGENTS.md`, and project terminology in its own authoritative location. The whole skill tree is linked, so project-specific skills cannot be placed inside `.agents/skills/`; move them to a project-owned location. Do not blanket-ignore `.agents/*`: it would also hide the submodule and game-owned configuration.
 
 The script does not edit ignore rules or Git state. It refreshes the four copied toolkit files and reports collisions rather than replacing existing link destinations. After a checkout move or toolkit update, remove old junctions after checking their targets, then rerun setup.
 
@@ -69,7 +69,7 @@ Pass `Claude` as the third argument to create a `.claude/skills/` junction to th
 
 Keep the toolkit and generated links out of game imports and exports. [Godot's project-organization documentation](https://docs.godotengine.org/en/stable/tutorials/best_practices/project_organization.html#ignoring-specific-folders) explains `.gdignore`: an empty file excludes a folder from importing and resource loading. The setup script copies the toolkit `.gdignore` into `.agents/`, so keep runtime game resources outside that folder. Review export presets and inspect the exported package for tooling, tests, and private documentation. Import exclusion alone is not evidence that a custom export packaging step excludes everything.
 
-For an existing ignored copy, first inventory the old collection and preserve game-owned instructions, local skill edits, and terminology documents. Move only the old toolkit out of the destination after reviewing that inventory. Add the submodule, move any existing `.agents/skills/` and `.agents/docs/` directories aside after reviewing their contents, run setup, repair game pointers, and verify discovery before removing the backup. Do not replace an entire `.agents/` directory containing `.agents/project/`. This procedure is documented here; no existing game is migrated by this toolkit change.
+For an existing ignored copy, first inventory the old collection and preserve game-owned instructions, local skill edits, and terminology documents. Move only the old toolkit out of the destination after reviewing that inventory. Add the submodule, move any existing `.agents/skills/` and `.agents/docs/` directories aside after reviewing their contents, run setup, repair game pointers, and verify discovery before removing the backup. Do not replace an entire `.agents/`. This procedure is documented here; no existing game is migrated by this toolkit change.
 
 ## Verify
 

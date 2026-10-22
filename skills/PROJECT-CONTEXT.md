@@ -16,7 +16,7 @@ Use project instructions to locate gameplay terminology, architecture, coding/au
 
 Game terms may live in mechanic pages, not a root glossary. Reuse those definitions and update their owning pages when terms are resolved. Read `GLOSSARY.md` or `GLOSSARY-MAP.md` when that is the project's convention. Create a glossary lazily only if there is no existing terminology authority and a term needs recording. Use the project's ADR location; default to `docs/adr/` only if none is established.
 
-Find the configured tracker and label mapping through project instructions. Existing `docs/agents/` guides remain valid. If configuration is needed, `setup-virtueos-skills` defaults new skill configuration to `.agents/project/`, then adds a pointer in the project's instruction file. Tracker-dependent skills should request setup only when their task actually needs missing tracker operations; a local plan or supplied spec does not require a remote tracker.
+Find the configured tracker and label mapping through project instructions. Existing `docs/agents/` guides remain valid. Tracker-dependent skills should request setup only when their task actually needs missing tracker operations; a local plan or supplied spec does not require a remote tracker.
 
 ## Godot and proportionality
 

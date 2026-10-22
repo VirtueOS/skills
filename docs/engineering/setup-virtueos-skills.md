@@ -14,7 +14,7 @@ This fork renamed it to setup-virtueos-skills. Use the new command.
 
 **Will it replace my project layout?**
 
-No. Existing instructions and documentation take precedence. New configuration defaults to .agents/project/ only if no convention exists.
+No. Existing instructions and documentation take precedence.
 
 **Must I create a glossary or install a test framework?**
 

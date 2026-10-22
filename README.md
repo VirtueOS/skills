@@ -4,7 +4,7 @@ A personal Godot-first fork of [Matt Pocock's skills](https://github.com/mattpoc
 
 ## Install for a team
 
-Use as a Git submodule at `.agents/toolkit/`, then run the batch linker to expose individual skills through `.agents/skills/`. See [installation and updates](docs/installation.md) for commands, generated-link ignore rules, optional Claude support, and migration from an existing copy.
+Use as a Git submodule at `.agents/toolkit/`, then run `setup-toolkit.bat` to copy toolkit guidance into `.agents/` and expose individual skills through `.agents/skills/`. See [installation and updates](docs/installation.md) for commands, generated-link ignore rules, optional Claude support, and migration from an existing copy.
 
 Keep game-specific configuration in `.agents/project/` or its existing documented location. Run [setup-virtueos-skills](skills/engineering/setup-virtueos-skills/SKILL.md) when tracker/documentation setup is needed. Game configuration belongs outside the shared submodule.
 
@@ -65,6 +65,6 @@ User-invoked skills start only when requested. Model-invoked skills can also be 
 
 The [adaptation plan](docs/skill-adaptation.md) records the accepted scope. Keep human pages, bucket indexes, and the router synchronized with skill behavior. Review upstream changes selectively; each game adopts a toolkit revision through its normal workflow. [In-progress skills](skills/in-progress/README.md) are opt-in.
 
-Run `call tests\test-link-skills.bat` for a linker smoke check and `python scripts/check-toolkit.py` for document/metadata consistency. Linking needs Windows directory junction support.
+Run `call tests\test-setup-toolkit.bat` for a toolkit setup smoke check and `python scripts/check-toolkit.py` for document/metadata consistency. Setup needs Windows directory junction support.
 
 The original MIT [license](LICENSE) and attribution are retained. Historical [changelog entries](CHANGELOG.md) describe upstream releases, not current installation behavior.

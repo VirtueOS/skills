@@ -1,11 +1,11 @@
 # Godot toolkit adaptation verification
 
-The original toolkit changes were verified on Windows with PowerShell 7 on 2026-10-21. That historical verification predates the batch linker conversion described in this fork. No game repository was migrated or modified, and no tracker issues were published.
+The original toolkit changes were verified on Windows with PowerShell 7 on 2026-10-21. That historical verification predates the batch setup conversion described in this fork. No game repository was migrated or modified, and no tracker issues were published.
 
 ## Automated checks
 
-- Historical PowerShell linker integration test passed before the batch conversion. The current batch test is a smoke test for creating a junction at a path containing spaces and has not been run as part of this conversion.
-- The same suite creates an actual local Git submodule, confirms its pinned gitlink and unchanged toolkit Git state, and reads the linked skill content.
+- Historical PowerShell linker integration test passed before the batch conversion. The current batch test is a smoke test for copying the four toolkit files over existing copies and creating a junction at a path containing spaces and has not been run as part of this conversion.
+- The historical integration suite also created an actual local Git submodule, confirmed its pinned gitlink and unchanged toolkit Git state, and read the linked skill content.
 - An actual toolkit skill is installed into a scratch game. Both shared project and Godot references are readable after resolving the installed directory link to its physical source. Entry points explicitly require this resolution because the flat discovery path differs from the source bucket path.
 - `python scripts/check-toolkit.py`: checks local Markdown links, promoted/bucket navigation, skill identities, invocation-policy consistency, human-page sections, and prose conventions. This uses only the Python standard library.
 - All 33 original manifests and invocation-policy files were parsed as YAML. The bundled skill-creator validator also checked required fields, names, descriptions, and unfinished placeholders. Its schema predates the collection's existing `disable-model-invocation` and `argument-hint` fields: 22 skills therefore used temporary compatibility copies after those original fields and policies were independently checked. No invocation policy was removed from the actual skills.

@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
-rem Usage: link-skills.bat [project-root] [toolkit-root] [Codex|Claude] [include-in-progress]
+rem Usage: setup-toolkit.bat [project-root] [toolkit-root] [Codex|Claude] [include-in-progress]
 set "PROJECT=%~f1"
 if "%~1"=="" set "PROJECT=%CD%"
 set "TOOLKIT=%~f2"
@@ -26,8 +26,20 @@ if /i not "%AGENT%"=="Codex" if /i not "%AGENT%"=="Claude" (
   exit /b 1
 )
 if /i "%AGENT%"=="Codex" (set "AGENTDIR=.agents") else set "AGENTDIR=.claude"
+set "AGENTROOT=%PROJECT%\.agents"
+for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do if not exist "%TOOLKIT%\%%F" (
+  echo ERROR: required toolkit file is missing: "%TOOLKIT%\%%F" 1>&2
+  exit /b 1
+)
+if not exist "%AGENTROOT%" md "%AGENTROOT%"
+if not exist "%AGENTROOT%" exit /b 1
+for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do (
+  call :copy_file "%%F"
+  if errorlevel 1 exit /b 1
+)
 set "DEST=%PROJECT%\%AGENTDIR%\skills"
-if not exist "%DEST%" md "%DEST%" || exit /b 1
+if not exist "%DEST%" md "%DEST%"
+if not exist "%DEST%" exit /b 1
 
 set /a COUNT=0
 for %%B in (engineering productivity) do call :link_bucket "%%B"
@@ -38,7 +50,16 @@ if %COUNT% EQU 0 (
   echo ERROR: no selected skills found in "%TOOLKIT%". 1>&2
   exit /b 1
 )
-echo Linked %COUNT% skills for %AGENT%. Junctions stay local; commit the submodule revision in the consuming project.
+echo Copied toolkit guidance and linked %COUNT% skills for %AGENT%. Commit the submodule revision in the consuming project.
+exit /b 0
+
+:copy_file
+copy /y "%TOOLKIT%\%~1" "%AGENTROOT%\%~1" >nul
+if errorlevel 1 (
+  echo ERROR: could not copy "%TOOLKIT%\%~1" to "%AGENTROOT%\%~1". 1>&2
+  exit /b 1
+)
+echo Copied %~1 to .agents\%~1
 exit /b 0
 
 :link_bucket

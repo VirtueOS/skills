@@ -11,7 +11,7 @@ metadata:
 
 Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
 
-Before project work, read [project context](../../PROJECT-CONTEXT.md) for roots, authoritative docs, and output paths.
+Before project work, read [project context](../../PROJECT_CONTEXT.md) for roots, authoritative docs, and output paths.
 
 Use this template for writing the PR body:
 

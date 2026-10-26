@@ -5,7 +5,7 @@ description: Build and sharpen a project's domain model. Use when discussing cod
 
 Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
 
-Before project work, read [project context](../../PROJECT-CONTEXT.md) for roots, authoritative docs, and output paths.
+Before project work, read [project context](../../PROJECT_CONTEXT.md) for roots, authoritative docs, and output paths.
 
 # Domain Modeling
 
@@ -13,7 +13,7 @@ Actively build and sharpen the project's domain model as you design. This is the
 
 ## Documentation authority
 
-Locate the project's terminology and ADR authorities through [project context](../../PROJECT-CONTEXT.md). A glossary is one valid convention; mechanic pages or other domain docs may already own the definitions. Update the owning source rather than creating a duplicate `GLOSSARY.md`.
+Locate the project's terminology and ADR authorities through [project context](../../PROJECT_CONTEXT.md). A glossary is one valid convention; mechanic pages or other domain docs may already own the definitions. Update the owning source rather than creating a duplicate `GLOSSARY.md`.
 
 If no terminology authority exists, create a glossary lazily on the first resolved term using [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md). Use the established ADR location, defaulting to `docs/adr/` only when none exists. Both belong to the consuming project or active worktree, not the toolkit submodule.
 

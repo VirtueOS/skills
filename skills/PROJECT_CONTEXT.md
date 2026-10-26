@@ -5,7 +5,7 @@ Read this before a skill explores or writes in a project. The toolkit may be a s
 ## Establish the roots
 
 - **Project root**: the game or repository the user is working on, or the active implementation worktree. Start from the user's task location and its instructions. Read its `AGENTS.md`/`CLAUDE.md` and task-relevant documentation index.
-- **Toolkit root**: this skill collection. Resolve a discovered skill directory link to its physical source before following parent-relative references. In PowerShell 7, get the directory with `Get-Item`, then use `($entry.ResolveLinkTarget($true) ?? $entry).FullName`; Python's `Path.resolve()` also resolves directory links. Relative links in this collection use the physical bucket directory, not the flattened `.agents/skills/<name>/` path. These references are not output locations.
+- **Toolkit root**: this skill collection. Resolve a discovered skill directory link to its physical source before following parent-relative references. In PowerShell 7, get the directory with `Get-Item`, then use `($entry.ResolveLinkTarget($true) ?? $entry).FullName`. Python's `Path.resolve()` is an alternative only when the project's workflow permits Python. Relative links in this collection use the physical bucket directory, not the flattened `.agents/skills/<name>/` path. These references are not output locations.
 - When a skill lives in a submodule, its nearest Git root is the toolkit, not the game. Resolve game Git commands, code, specs, research, and documentation against the project/worktree. When the task is to modify the toolkit itself, the toolkit is the project.
 
 Confirm an ambiguous project location before writing. Never store game-specific configuration in the shared toolkit submodule.

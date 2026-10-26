@@ -16,7 +16,7 @@ Agree meaningful testing boundaries during planning, use existing checks, and re
 
 ## Reference
 
-User-invoked skills start only when requested. Model-invoked skills can also be selected by a matching task or another workflow. [Project context](skills/PROJECT-CONTEXT.md) explains submodule paths; [Godot guidance](skills/GODOT.md) covers verification and authoring invariants.
+User-invoked skills start only when requested. Model-invoked skills can also be selected by a matching task or another workflow. [Project context](skills/PROJECT_CONTEXT.md) explains submodule paths; [Godot guidance](skills/GODOT.md) covers verification and authoring invariants.
 
 ### Engineering
 

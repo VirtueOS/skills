@@ -8,7 +8,7 @@ Resolve this skill directory to its physical source if loaded through a discover
 
 # Setup VirtueOS Skills
 
-Read [project context](../../PROJECT-CONTEXT.md) before choosing a root or output paths. This configures the consuming project, not the toolkit submodule. Linking the installed skills is a separate step documented in the toolkit README.
+Read [project context](../../PROJECT_CONTEXT.md) before choosing a root or output paths. This configures the consuming project, not the toolkit submodule. Linking the installed skills is a separate step documented in the toolkit README.
 
 ## Explore first
 

@@ -5,7 +5,7 @@ description: Build a throwaway prototype to answer a gameplay, logic, or UI desi
 
 Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
 
-Read [project context](../../PROJECT-CONTEXT.md) and the project's prototype/run conventions. A prototype is **throwaway code that answers one question**. State that question before building.
+Read [project context](../../PROJECT_CONTEXT.md) and the project's prototype/run conventions. A prototype is **throwaway code that answers one question**. State that question before building.
 
 ## Choose the artifact
 

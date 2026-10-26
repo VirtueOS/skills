@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Resolve this skill directory to its physical source if loaded through a discovery link; parent-relative references below use the toolkit bucket layout, not the flat discovery layout.
 
-Read [project context](../../PROJECT-CONTEXT.md) before selecting roots, guidance, and output paths. Implement the user's supplied spec, plan, or tickets. Before editing, capture the starting commit and worktree status so review can identify task changes and preserve existing user work.
+Read [project context](../../PROJECT_CONTEXT.md) before selecting roots, guidance, and output paths. Implement the user's supplied spec, plan, or tickets. Before editing, capture the starting commit and worktree status so review can identify task changes and preserve existing user work.
 
 If a ticket reference is passed, fetch it through the configured tracker and state its title. Ask if the reference is ambiguous. A local supplied plan is sufficient; remote tracker setup is not required for it.
 

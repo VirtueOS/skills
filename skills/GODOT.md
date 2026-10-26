@@ -1,6 +1,6 @@
 # Godot development feedback
 
-Use the project-owned engine version, commands, coding standards, and authoring guidance discovered through [PROJECT-CONTEXT.md](PROJECT-CONTEXT.md). These skills target GDScript, 2D/3D, and Windows/Web without fixing a folder layout, executable path, or test framework.
+Use the project-owned engine version, commands, coding standards, and authoring guidance discovered through [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md). These skills target GDScript, 2D/3D, and Windows/Web without fixing a folder layout, executable path, or test framework.
 
 ## Choose evidence for the change
 

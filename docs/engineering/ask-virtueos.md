@@ -18,7 +18,7 @@ Follow the game's instructions. [setup-virtueos-skills](setup-virtueos-skills.md
 
 **Does it invoke every recommended skill?**
 
-No. User-invoked skills remain explicit-only. The router names the next step; the user chooses it.
+No. User-invoked skills remain explicit-only. The router names the next step; the user chooses it. At the end of an implementation-oriented interview, [grilling](../productivity/grilling.md) offers implement or to-spec. Choosing that named route is an explicit invocation; a separate slash command is unnecessary.
 
 ## It's working if
 

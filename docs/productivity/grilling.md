@@ -18,7 +18,7 @@ It investigates available code and docs itself, delegating independent fact find
 
 **When does implementation start?**
 
-After shared understanding is confirmed and implementation is requested. A request already made in the conversation counts; no repeated approval is needed.
+For implementation work, the final question summarizes the scope and offers [implement](../engineering/implement.md) to build it here or [to-spec](../engineering/to-spec.md) to prepare a specification for later work or other agents. It recommends a route. Choosing the named route confirms the scope and starts that skill; a separate slash command is unnecessary. An already-confirmed scope and route are reused. Non-implementation interviews finish with shared understanding.
 
 ## It's working if
 

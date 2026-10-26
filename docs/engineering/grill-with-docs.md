@@ -18,7 +18,7 @@ No. ADRs are for real tradeoffs that are hard to reverse and surprising without 
 
 **Does it implement automatically?**
 
-It confirms shared understanding first. An explicit implementation request after agreement can proceed without another interview.
+It finishes with the workflow choice defined by [grilling](../productivity/grilling.md): [implement](implement.md) to build the agreed work here, or [to-spec](to-spec.md) to prepare a specification for later work or other agents. Choosing a named option starts that skill without requiring a separate slash command. Preparing a specification does not itself dispatch agents.
 
 ## It's working if
 
@@ -28,4 +28,4 @@ It confirms shared understanding first. An explicit implementation request after
 
 ## Where it fits
 
-The main flow is [grill-with-docs](grill-with-docs.md), [to-spec](to-spec.md), [to-tickets](to-tickets.md), then [implement](implement.md). [ask-virtueos](ask-virtueos.md) maps the available workflows.
+After the interview, choose [implement](implement.md) here or [to-spec](to-spec.md) for a specification. Larger specifications can continue through [to-tickets](to-tickets.md) before implementation. [ask-virtueos](ask-virtueos.md) maps the available workflows.

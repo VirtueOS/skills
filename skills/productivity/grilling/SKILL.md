@@ -19,4 +19,13 @@ Word the question so “yes” accepts the recommendation where practical. After
 
 **Facts are your job; decisions are the user's.** Inspect available code, instructions, and documentation rather than asking facts you can discover. Delegate independent fact finding when subagents are available; continue with one unrelated decision while that research runs. Ask for access or a location only when you cannot discover the needed source.
 
-The interview is done when every relevant branch is settled and no material assumption remains unstated. Summarize the agreed scope and ask one final question confirming shared understanding before implementation. If the user already confirms the scope and requests implementation, proceed. Documentation wrappers may record settled terms and decisions during the interview.
+The interview is done when every relevant branch is settled and no material assumption remains unstated. Documentation wrappers may record settled terms and decisions during the interview.
+
+For an implementation-oriented interview, summarize the agreed scope and make the final question a choice of the next workflow:
+
+- [implement](../../engineering/implement/SKILL.md): build the agreed work here, with its checks, review and commit.
+- [to-spec](../../engineering/to-spec/SKILL.md): synthesize and publish the agreed specification for later implementation or handoff to other agents. This route prepares the work; it does not dispatch agents.
+
+Recommend the route that fits the task. This single workflow choice also confirms the summarized scope. The user's explicit selection of a named route authorizes invoking that skill; a separate slash command is unnecessary. Read and follow the selected skill before starting the next phase. If the user has already confirmed the scope and selected a route, continue through that skill without another confirmation. A request to implement the agreed scope selects implement. When only scope is confirmed and the route remains unclear, ask which route to take.
+
+For interviews with no implementation outcome, finish by confirming shared understanding without offering engineering workflows.

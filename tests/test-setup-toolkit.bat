@@ -24,6 +24,14 @@ if not exist "%PROJECT%\.agents\skills\engineering\example\SKILL.md" goto :fail
 if not exist "%PROJECT%\.agents\docs\installation.md" goto :fail
 for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do fc /b "%PROJECT%\.agents\toolkit\%%F" "%PROJECT%\.agents\%%F" >nul || goto :fail
 echo PASS: toolkit files overwrite existing copies and skills/docs junctions work with paths containing spaces
+set "TOOLKIT=%PROJECT%\.agents\toolkit"
+>"%TOOLKIT%\.git" echo fixture
+call "%ROOT%\scripts\setup-toolkit.bat" "%TOOLKIT%" "%TOOLKIT%"
+if errorlevel 1 goto :fail
+if not exist "%TOOLKIT%\.agents\skills\engineering\example\SKILL.md" goto :fail
+if not exist "%TOOLKIT%\.agents\docs\installation.md" goto :fail
+for %%F in (.gdignore AGENTS.md GLOSSARY.md README.md) do fc /b "%TOOLKIT%\%%F" "%TOOLKIT%\.agents\%%F" >nul || goto :fail
+echo PASS: toolkit can link its own skills and docs for development
 rd /s /q "%FIXTURE%"
 exit /b 0
 :fail

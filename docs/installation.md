@@ -33,6 +33,16 @@ game/
 
 ```
 
+## Use skills in the toolkit repository
+
+To use this repository's skills while developing the toolkit itself, run from its root:
+
+```bat
+call scripts\setup-toolkit.bat .
+```
+
+The project and toolkit roots may be the same directory. This creates `.agents/skills/` and `.agents/docs/` junctions to the repository's own `skills/` and `docs/` folders and copies the four guidance files into `.agents/`, just as for a consuming project. The repository already ignores `.agents/`.
+
 ## Ignore generated links, preserve project skills
 
 The skills and docs junctions point to local paths. Add ignore entries for `.agents/skills/` and `.agents/docs/`, and `.claude/skills/` when using the optional Claude target. The four copied toolkit files can be committed when the project should share them, but setup overwrites them from the pinned toolkit revision every time. Keep project-specific guidance in the game root `AGENTS.md`, and project terminology in its own authoritative location. The whole skill tree is linked, so project-specific skills cannot be placed inside `.agents/skills/`; move them to a project-owned location. Do not blanket-ignore `.agents/*`: it would also hide the submodule and game-owned configuration.

@@ -20,10 +20,6 @@ if not exist "%TOOLKIT%\docs" (
   echo ERROR: toolkit documentation is missing at "%TOOLKIT%\docs". 1>&2
   exit /b 1
 )
-if /i "%PROJECT%"=="%TOOLKIT%" (
-  echo ERROR: project root must be the consuming project, not the toolkit. 1>&2
-  exit /b 1
-)
 if /i not "%AGENT%"=="Codex" if /i not "%AGENT%"=="Claude" (
   echo ERROR: agent must be Codex or Claude. 1>&2
   exit /b 1

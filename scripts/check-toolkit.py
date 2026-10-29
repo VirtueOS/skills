@@ -59,7 +59,7 @@ def check():
         index = (bucket / "README.md").read_text(encoding="utf-8")
         if f"{name}/SKILL.md" not in index:
             errors.append(f"{bucket.relative_to(ROOT)}: skill absent from bucket index: {name}")
-        if bucket.name in {"engineering", "productivity"}:
+        if bucket.name in {"engineering", "art", "productivity"}:
             if skill.relative_to(ROOT).as_posix() not in root_index:
                 errors.append(f"README.md: promoted skill missing: {name}")
             page = ROOT / "docs" / bucket.name / f"{name}.md"

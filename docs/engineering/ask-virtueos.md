@@ -12,6 +12,8 @@ Invoke `/ask-virtueos` explicitly when you know the task but not which workflow 
 
 The [root reference](../../README.md#reference) and [skill folders](../../skills/engineering/README.md) describe the pinned revision. Check the linked `SKILL.md`, not a removed plugin manifest, for authoritative behavior.
 
+The [art bucket](../../skills/art/README.md) includes [blackout-3d-art](../art/blackout-3d-art.md) for concepts, models, materials, animation, and requested Godot integration. The router recommends it for asset production; separate gameplay implementation belongs to implement.
+
 **Where does project configuration live?**
 
 Follow the game's instructions. [setup-virtueos-skills](setup-virtueos-skills.md) reuses existing guidance and defaults new configuration outside the toolkit. See [installation](../installation.md) for linking and updates.

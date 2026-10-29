@@ -1,16 +1,17 @@
 Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
+- `art/`: asset creation, revision, and integration
 - `productivity/`: daily non-code workflow tools
 - `in-progress/`: beta: public on purpose, feedback wanted, not shipped in the plugin
 
-Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md`.
+Every skill in `engineering/`, `art/`, or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md`.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. The promoted buckets' `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
-Skills in `engineering/` and `productivity/` also have a human-facing docs page at `docs/<bucket>/<skill-name>.md` (the docs tree mirrors those two bucket folders under `skills/`). Docs are maintained in this fork and use relative links; they are not published automatically to the upstream website. When you add, rename, or change the behaviour of a skill in `engineering/` or `productivity/`, create or re-sync its docs page following [docs/writing-docs.md](./docs/writing-docs.md). A finished page carries four sections: **What it does**, **When to reach for it**, **Common questions**, and **It's working if**. `writing-docs.md` holds the template, the section order, and where to hunt for the questions.
+Skills in the promoted buckets also have a human-facing docs page at `docs/<bucket>/<skill-name>.md` (the docs tree mirrors those bucket folders under `skills/`). Docs are maintained in this fork and use relative links; they are not published automatically to the upstream website. When you add, rename, or change the behaviour of a skill in a promoted bucket, create or re-sync its docs page following [docs/writing-docs.md](./docs/writing-docs.md). A finished page carries four sections: **What it does**, **When to reach for it**, **Common questions**, and **It's working if**. `writing-docs.md` holds the template, the section order, and where to hunt for the questions.
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable).
 

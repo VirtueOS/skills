@@ -46,6 +46,16 @@ User-invoked skills start only when requested. Model-invoked skills can also be 
 - **[tdd](skills/engineering/tdd/SKILL.md)**: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
 - **[wizard](skills/engineering/wizard/SKILL.md)**: Generate an interactive wizard in the project's available shell that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.
 
+### Art
+
+**User-invoked**
+
+- **[blackout-3d-art](skills/art/blackout-3d-art/SKILL.md)**: Create or revise Blackout Protocol concepts, models, textures, and animations, with task-specific visual checks and optional Godot integration. See the [usage guide](docs/art/blackout-3d-art.md).
+
+**Model-invoked**
+
+None yet.
+
 ### Productivity
 
 **User-invoked**

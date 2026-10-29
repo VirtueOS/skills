@@ -4,7 +4,7 @@ Asset creation, revision, and integration workflows. Project art direction and a
 
 ## User-invoked
 
-- **[blackout-3d-art](./blackout-3d-art/SKILL.md)**: Create or revise Blackout Protocol concepts, models, textures, and animations, with task-specific visual checks and optional Godot integration.
+- **[3d-art](./3d-art/SKILL.md)**: Create or revise concepts, models, textures, and animations using project art direction, with task-specific visual checks and optional Godot integration.
 
 ## Model-invoked
 

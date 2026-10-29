@@ -1,6 +1,6 @@
 ---
-name: blackout-3d-art
-description: Create or revise Blackout Protocol concepts, 3D assets, textures, and animations, and integrate the requested result into Godot.
+name: 3d-art
+description: Create or revise concepts, 3D assets, textures, and animations, and integrate the requested result into Godot.
 disable-model-invocation: true
 ---
 
@@ -10,7 +10,7 @@ Read [project context](../../PROJECT_CONTEXT.md) before selecting the game root,
 
 ## 1. Establish the task and baseline
 
-Read the game's instructions and art documentation index. Capture the starting commit and worktree status in the game repository before edits. Trace existing assets from the actual scene or MeshLibrary through meshes, materials, textures, and import settings. Identify shared resources and instance overrides before deciding what to change.
+Read the game's instructions and art documentation index. Check for [project verification rules](references/verification.md#project-verification-rules) before planning production and review. Capture the starting commit and worktree status in the game repository before edits. Trace existing assets from the actual scene or MeshLibrary through meshes, materials, textures, and import settings. Identify shared resources and instance overrides before deciding what to change.
 
 Choose the requested mode, combining modes only when the request includes them:
 
@@ -27,9 +27,9 @@ Locate usable Blender, Godot, image, and rendering tools on this machine. Read [
 
 ## 2. Load the relevant art requirements
 
-Project-owned art direction is authoritative. Read [bundled Blackout art direction](references/team-art-direction.md) for fallback style rules where project guidance is silent. For a named asset family, read only its section in [asset families](references/asset-families.md). When choosing colors, read [palette guidance](references/color-palette.md) and view the relevant linked images. Keep game-specific updates in the game's owning art page, outside a shared toolkit submodule.
+Project-owned art direction is authoritative. Use [art-direction guidance](references/art-direction.md) to extract the task's style, construction, and readability requirements from its actual references. For a named asset family, locate the corresponding project page and approved source. When choosing colors, use [palette guidance](references/color-palette.md) and view the supplied images. Keep game-specific updates in the game's owning art page, outside a shared toolkit submodule.
 
-Within the requested scope, resolve visual decisions from the user's current instruction, the approved concept, current project guidance/resources, then bundled defaults. Surface incompatible requirements rather than silently redesigning the asset.
+Within the requested scope, resolve visual decisions from the user's current instruction, the approved concept, then current project guidance/resources. This skill prescribes no default genre, palette, brushwork, or asset-family design. Surface incompatible requirements rather than silently redesigning the asset.
 
 ## 3. Produce the requested result
 

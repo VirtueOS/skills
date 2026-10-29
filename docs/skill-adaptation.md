@@ -19,11 +19,11 @@ This is the accepted adaptation plan and work breakdown. The user subsequently i
 
 ## Representative project
 
-The user supplied `W:/Projects/Godot/blackout_protocol` as an example, not as a layout to hardcode into shared skills.
+The user supplied a game repository as read-only evidence of project conventions, not as a layout to hardcode into shared skills. Its project-specific context is maintained separately from the reusable toolkit.
 
-Its root `AGENTS.md` routes agents through `docs/agents/workflow.md` and `docs/index.md`. Its documentation owns testing commands, terminology, coding standards, and scene/resource authoring rules. `project.godot` declares Godot 4.7 with Forward Plus; that declaration does not establish the installed executable's exact version or a minimum version for the shared toolkit.
+Follow the consuming project's instruction and documentation indexes for testing commands, terminology, coding standards, and scene/resource authoring rules. Read engine and renderer declarations from that project's configuration; a declaration does not establish the installed executable's exact version or a minimum version for the shared toolkit.
 
-Tests use standalone GDScript scripts, generally extending `SceneTree`, with PowerShell commands documented by the project. No new test framework is implied. Architecture documentation distinguishes current structure from a proposed target structure.
+Reuse the project's documented test commands and runner without implying a new test framework. Distinguish current architecture from proposed target structure in its documentation.
 
 ## Original cleanup findings
 
@@ -40,9 +40,9 @@ The removed npm dependencies and release scripts are not required to execute the
 
 ## Scope of the later implementation
 
-Update this toolkit, its supporting references, navigation, human-facing docs, and installation tooling. Use `blackout_protocol` as read-only evidence of project conventions, not as a template to impose on every game.
+Update this toolkit, its supporting references, navigation, human-facing docs, and installation tooling. Use the representative project as read-only evidence of conventions, not as a template to impose on every game.
 
-Do not migrate `blackout_protocol`, create a submodule there, replace its ignored copy, edit its gameplay code, introduce a test framework, or restore upstream publishing infrastructure as part of this work. Document a separate migration procedure for a project owner to apply later.
+Do not migrate the representative game, create a submodule there, replace its ignored copy, edit its gameplay code, introduce a test framework, or restore upstream publishing infrastructure as part of this work. Document a separate migration procedure for a project owner to apply later.
 
 ## Proposed specs
 
@@ -81,7 +81,7 @@ Adapt setup, domain-modeling, and their consumers to follow project instructions
 
 Distinguish three roots: the game repository, the toolkit submodule, and an implementation worktree. Skill-local references resolve inside the toolkit; game code, task outputs, tracker configuration, and game docs resolve in the intended project/worktree. Never infer the game root from the nearest Git root when the running skill is inside a submodule.
 
-Acceptance: existing terminology documents can remain authoritative without creating a duplicate glossary. Existing docs paths and current-versus-planned architecture labels are respected. A project with a different layout works without editing shared skills. Setup writes project configuration outside `.agents/toolkit/`. Missing guidance receives minimal defaults; no Godot executable path, engine version, or `blackout_protocol` directory is hardcoded.
+Acceptance: existing terminology documents can remain authoritative without creating a duplicate glossary. Existing docs paths and current-versus-planned architecture labels are respected. A project with a different layout works without editing shared skills. Setup writes project configuration outside `.agents/toolkit/`. Missing guidance receives minimal defaults; no Godot executable path, engine version, or project-specific directory is hardcoded.
 
 ### T4: Make design advice proportional to indie development
 
@@ -141,7 +141,7 @@ T1 and T2 can start independently. T3 follows T2. T4 follows T3. T5 follows T1, 
 
 For later tracker tickets, translate these dependencies into explicit blocking relationships. Keep each ticket's acceptance criteria, project/toolkit scope, and relevant spec pointer. Do not publish tickets until the user requests that step and the tracker destination is established.
 
-Planning is complete when this document captures the agreed scope and actionable work breakdown. Implementation is complete only after the later authorized changes meet the ticket criteria. Migrating `blackout_protocol` is a separate follow-up after the toolkit is ready.
+Planning is complete when this document captures the agreed scope and actionable work breakdown. Implementation is complete only after the later authorized changes meet the ticket criteria. Migrating the representative game is a separate follow-up after the toolkit is ready.
 
 ## Implementation record
 

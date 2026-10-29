@@ -1,0 +1,5 @@
+interface:
+  display_name: "3D Art"
+  short_description: "Концепты, модели, текстуры и анимации для игр"
+policy:
+  allow_implicit_invocation: false

@@ -1,5 +1,0 @@
-interface:
-  display_name: "Blackout Protocol: 3D и текстуры"
-  short_description: "Модели, текстуры и анимации для Blackout Protocol"
-policy:
-  allow_implicit_invocation: false

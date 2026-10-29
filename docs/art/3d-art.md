@@ -1,12 +1,12 @@
 ## What it does
 
-Creates or revises Blackout Protocol concepts, models, textures, and animations, with optional Godot integration. It works from the supplied task, approved concept, and actual project resources, then delivers files with task-specific visual evidence.
+Creates or revises concepts, models, textures, and animations, with optional Godot integration. It works from the supplied task, approved concept, and actual project resources, then delivers files with task-specific visual evidence. The consuming project supplies style, palette, and asset-family requirements.
 
 ## When to reach for it
 
-Invoke `$blackout-3d-art` explicitly for an art task. Specify the asset or source, desired change, relevant concept, and whether installation in the game is requested. Existing context supplies details already agreed; a separate team prompt is unnecessary.
+Invoke `$3d-art` explicitly for an art task. Specify the asset or source, desired change, relevant concept, and whether installation in the game is requested. Existing context supplies details already agreed; a separate team prompt is unnecessary.
 
-For example: `$blackout-3d-art Revise this door's materials to match the attached concept, preserve its animation, and replace the resource in the project.`
+For example: `$3d-art Revise this door's materials to match the attached concept, preserve its animation, and replace the resource in the project.`
 
 Use [grill-with-docs](../engineering/grill-with-docs.md) when the art brief needs decisions first. Use [implement](../engineering/implement.md) for a separate gameplay implementation task. Other workflows may read the art references, but this skill starts only when the user selects it.
 
@@ -22,7 +22,7 @@ No. Asking to import, replace, or add a specified asset authorizes that integrat
 
 **Which art direction wins?**
 
-The current task and approved concept guide the change, with project-owned art documentation taking precedence over bundled defaults. Historical variants do not become new tasks. New project decisions belong in the game's art pages.
+The current task, approved concept, and project-owned art documentation guide the change. This skill includes no default game style, palette, reference images, or named asset families. Supply them in the task or locate them in the game's art pages. Historical variants do not become new tasks, and new project decisions stay in those owning pages.
 
 **Does every model need a generation script?**
 
@@ -31,6 +31,10 @@ No. An editable source is required for model work; a repeatable script is useful
 **What happens if Blender or visual Godot checks are unavailable?**
 
 The agent completes independent work, identifies the unavailable capability, and marks dependent production or evidence as pending. Headless loading is not reported as visual verification.
+
+**Which verification rules does it use?**
+
+The agent first searches the project's instructions and art or asset-pipeline documentation for applicable checks, review setups, and evidence requirements. Those rules guide verification alongside the task's acceptance criteria. If no project rules are found, it selects relevant checks from the skill's general guidance. Project-specific procedures stay in the project's documentation.
 
 **Does it commit automatically like implement?**
 
@@ -42,6 +46,7 @@ Standalone art work commits only when requested. An explicitly selected parent w
 - Real model previews support geometry and material claims; concepts are identified separately.
 - Replacements preserve required scale, pivot, references, IDs, and behavior.
 - Requested exports are inspected after reimport, and installed assets are checked in their consuming scene.
+- Verification follows applicable project art rules and the task's acceptance criteria.
 - Delivery names exact files and separates completed checks from pending evidence.
 
 ## Where it fits

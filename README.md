@@ -50,7 +50,7 @@ User-invoked skills start only when requested. Model-invoked skills can also be 
 
 **User-invoked**
 
-- **[blackout-3d-art](skills/art/blackout-3d-art/SKILL.md)**: Create or revise Blackout Protocol concepts, models, textures, and animations, with task-specific visual checks and optional Godot integration. See the [usage guide](docs/art/blackout-3d-art.md).
+- **[3d-art](skills/art/3d-art/SKILL.md)**: Create or revise concepts, models, textures, and animations using project art direction, with task-specific visual checks and optional Godot integration. See the [usage guide](docs/art/3d-art.md).
 
 **Model-invoked**
 
